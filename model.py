@@ -27,13 +27,12 @@ def get_pwms(path_to_pwms):
 
         # load pwm as a dictionary
         pwm_dict = dict([(nuc,[]) for nuc in NUCLEOTIDES])
-        handle = open(pwm_file, 'r')
-        pwm_names.append(handle.next().strip())
-        nucs = handle.next().strip().split()
-        for line in handle:
-            values = line.strip().split()
-            ig = [pwm_dict[n].append(v) for n,v in zip(nucs,values)]
-        handle.close()
+        with open(pwm_file, 'r') as pf:
+            pwm_names.append(pf.readline().strip())
+            nucs = pf.readline().strip().split()
+            for line in pf.readlines():
+                values = line.strip().split()
+                ig = [pwm_dict[n].append(v) for n,v in zip(nucs,values)]
         
         # process pwm into a normalized matrix
         pwm_len = len(pwm_dict['A'])
