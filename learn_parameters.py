@@ -1,6 +1,6 @@
 
 # additional libs
-import cPickle
+import six; from six.moves import cPickle
 import argparse
 import os
 import pdb
@@ -39,7 +39,7 @@ def parse_args():
 
     parser.add_argument("--test_chromosome",
                         type=str,
-                        default="chr18",
+                        default="",
                         help="chromosome to be held out as test data, "
                         "to evaluate the performance of the final model (default: chr18)")
 
@@ -136,7 +136,7 @@ class Logger():
 
         self.handle = open(self.log_file, 'a')
         self.handle.write(text+'\n')
-        print text
+        print(text)
         self.handle.close()
 
 

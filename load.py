@@ -52,7 +52,8 @@ def onehot(seq):
     return arr
 
 def map_cellgroup_to_category(filename):
-
+    """
+    """
     cellgroup_counts = dict()
     handle = gzip.open(filename,'r')
     header = handle.next()
