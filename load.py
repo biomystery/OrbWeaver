@@ -1,3 +1,4 @@
+
 import numpy as np
 import pysam
 import random
@@ -22,7 +23,7 @@ def partition_sites(options):
     valid = []
 
     with gzip.open(options.peak_file,'r') as handle:
-        header = handle.next().strip().split()
+        header = next(handle).strip().split()
         cellnames = header[3:]
         for line in handle:
             row = line.strip().split()
@@ -46,7 +47,7 @@ def onehot(seq):
     N = len(seq)
     arr = np.zeros((1,4,N), dtype='float32')
     [arr[0,ONE_HOT[s]].__setitem__(i,1) 
-     for i,s in enumerate(seq) if ONE_HOT.has_key(s)]
+     for i,s in enumerate(seq) if s in ONE_HOT]
     arr[0,:,~np.any(arr[0]==1,0)] = 0.25
 
     return arr
@@ -56,7 +57,7 @@ def map_cellgroup_to_category(filename):
     """
     cellgroup_counts = dict()
     handle = gzip.open(filename,'r')
-    header = handle.next()
+    header = next(handle)
     for line in handle:
         loc = line.strip().split()
         try:
@@ -192,7 +193,7 @@ def transfac_pwms(background={'A':0.25, 'T':0.25, 'G':0.25, 'C':0.25}):
     motifs = dict()
 
     handle = open("pwms/TRANSFAC/transfacIDs.txt", 'r')
-    handle.next()
+    next(handle)
     for pline in handle:
         prow = pline.strip().split('\t')
         if 'ENSG' not in prow[0]:
