@@ -8,7 +8,7 @@ import pdb
 
 # neural net libs
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Convolution2D, MaxPooling2D, GaussianDropout
+from keras.layers import Flatten, Dense, Conv2D, MaxPooling2D, GaussianDropout
 
 # other libraries
 import load
@@ -81,7 +81,7 @@ def build_neural_network(num_outputs, output_activation, path_to_pwms, window_si
     P, ig, L = pwms.shape
 
     # construct the first layer, with a convolution filter for each PWM
-    network = Sequential([Convolution2D(P, 4, L, \
+    network = Sequential([Conv2D(P, (4, L), \
                           input_shape=(1, 4, window_size), \
                           weights=[pwms.reshape(P, 1, 4, L), np.zeros((P, ))], \
                           trainable=False, activation='relu')])

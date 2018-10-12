@@ -1,0 +1,6 @@
+# channels : defaults, r, bioconda
+
+python==3.6.6
+numpy==1.15.0
+pysam==0.15.1
+keras==2.2.3
