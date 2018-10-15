@@ -22,10 +22,11 @@ def partition_sites(options):
     test = []
     valid = []
 
-    with gzip.open(options.peak_file,'r') as handle:
-        header = next(handle).strip().split()
+    with gzip.open(options.peak_file,'rt') as handle:
+        header = handle.readline().strip().split()
         cellnames = header[3:]
-        for line in handle:
+        print(cellnames)
+        for line in handle.readlines():
             row = line.strip().split()
             mid = (int(row[1])+int(row[2]))/2
             entry = [row[0], mid-options.window_size/2, mid+options.window_size/2]

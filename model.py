@@ -81,16 +81,17 @@ def build_neural_network(num_outputs, output_activation, path_to_pwms, window_si
     P, ig, L = pwms.shape
 
     # construct the first layer, with a convolution filter for each PWM
+    #[pwms.reshape(P, 1, 4, L), np.zeros((P, ))], \
     network = Sequential([Conv2D(P, (4, L), \
-                          input_shape=(1, 4, window_size), \
-                          weights=[pwms.reshape(P, 1, 4, L), np.zeros((P, ))], \
+                          input_shape=(4, window_size,1), \
+                          weights=[np.moveaxis(pwms,0,2).reshape(4,L,1,P),np.zeros((P,))], \
                           trainable=False, activation='relu')])
 
     # maxpool layer
     network.add(MaxPooling2D(pool_size=(1,4)))
 
     # 200 convolutional filters in second layer
-    network.add(Convolution2D(200, 1, 6, \
+    network.add(Conv2D(200, (1, 6), \
                           activation='relu'))
 
     # maxpool layer

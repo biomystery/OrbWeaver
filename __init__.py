@@ -1,2 +1,2 @@
-__all__ = ['callbacks','learn_parameters','load','model']
+__all__ = ['callbacks','load','model','learn_parameters']
 #import *
