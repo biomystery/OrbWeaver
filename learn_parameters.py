@@ -203,7 +203,7 @@ if __name__=="__main__":
     logger.log_this("cell types: %s"%(' '.join(cellnames)))
     history = network.fit_generator(train_flow, \
                                     samples_per_epoch=10000, \
-                                    nb_epoch=options.num_epochs, \
+                                    epochs=options.num_epochs, \
                                     verbose=0, \
                                     validation_data=(X_validation, Y_validation), \
                                     callbacks=[auroc, early_stopping])
