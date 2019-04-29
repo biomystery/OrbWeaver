@@ -23,7 +23,7 @@ def parse_args():
         "a neural network model that predicts the open chromatin state of "
         "a genomic locus across multiple cell types based on its DNA sequence alone.")
 
-    parser.add_argument("peak_file",
+    parser.add_argument("--peak_file",
                         action="store",
                         help="name of a gzipped text file containing "
                         " positional information of genomic loci that are active in at least "

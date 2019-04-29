@@ -21,16 +21,19 @@ class AuROC(Callback):
     def on_epoch_end(self, epoch, logs={}):
 
         values = []
-        prediction = self.model.predict(self.model.validation_data[0])
-        Y = self.model.validation_data[1][0]
-
+        prediction = self.model.predict(self.validation_data[0])
+        Y = self.validation_data[1]
+        #import pdb; pdb.set_trace()
+        
         if self.prediction_type=="cellgroup":
-
             prediction = np.dot(prediction, self.map_array)
             Y = np.dot(Y, self.map_array)
+        
+
 
         mask = ~np.logical_or(Y.sum(1)==0, Y.sum(1)==Y.shape[1])
 
+        
         for y,pred in zip(Y.T,prediction.T):
             pos = np.logical_and(mask, y==1)
             neg = np.logical_and(mask, y==0)

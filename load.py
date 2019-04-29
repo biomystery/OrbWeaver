@@ -51,7 +51,7 @@ def onehot(seq):
      for i,s in enumerate(seq) if s in ONE_HOT]
     arr[0,:,~np.any(arr[0]==1,0)] = 0.25
 
-    return arr
+    return np.moveaxis(arr,0,2)
 
 def map_cellgroup_to_category(filename):
     """
